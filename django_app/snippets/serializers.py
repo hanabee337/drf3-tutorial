@@ -13,9 +13,11 @@ from django.contrib.auth.models import User
 # style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
 #
 class SnippetSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = Snippet
-        fields = ('id', 'title', 'code', 'linenos', 'language', 'style')
+        fields = ('id', 'title', 'code', 'linenos', 'language', 'style', 'owner')
 
     def create(self, validated_data):
         """
